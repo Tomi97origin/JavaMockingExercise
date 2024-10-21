@@ -44,7 +44,7 @@ public class Main {
         System.out.println(person);
 
         // test authentication
-        AuthenticationService authentication = new AuthenticationService();
+        AuthenticationService authentication = new AuthenticationService(new PersonDAO());
         System.out.println(authentication.Authenticate("Peter", "rafa"));
         System.out.println(authentication.Authenticate("Peter", "rafanovsky"));
 
@@ -54,7 +54,7 @@ public class Main {
 
         // test authorization
         person = personDao.load("id = 2");
-        AuthorizationService authorization = new AuthorizationService();
+        AuthorizationService authorization = new AuthorizationService(new PersonDAO(), new PersonRolesDAO());
         boolean authorizationResult = authorization.Authorize(person, "/finance/report", AccessOperationType.Read);
         System.out.println(authorizationResult);
         

@@ -15,9 +15,9 @@ public class AuthorizationService {
     private PersonDAO persondao;
     private PersonRolesDAO personRolesDao;
 
-    public AuthorizationService() {
-        this.persondao = new PersonDAO();
-        this.personRolesDao = new PersonRolesDAO();
+    public AuthorizationService(PersonDAO persondao, PersonRolesDAO personRolesDao) {
+        this.persondao = persondao;
+        this.personRolesDao = personRolesDao;
     }
 
     // TODO: add tests
@@ -65,12 +65,15 @@ public class AuthorizationService {
     // TODO: "/section/subsection" -> "/section"
     // TODO: "/section" -> "/"
     // TODO: "/" -> ""
-    private String getUpperLever(String section) {
+    public static String getUpperLever(String section) {
         if (section.equals("/")) {
             return "";
         }
 
         String ret = section.substring(0, section.lastIndexOf("/") + 1);
+        if (ret.equals("/")) {
+            return ret;
+        }
         return ret.substring(0, ret.length() - 1);
     }
 
