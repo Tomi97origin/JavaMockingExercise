@@ -13,7 +13,7 @@ public class UserManagerService {
     public Person CreateUser(String name, String password) {
         Person person = null;
         try {
-            person = new Person(1, name, AuthenticationService.encryptPassword(password));
+            person = new Person(1, name, IAuthenticationService.encryptPassword(password));
             personDao.save(person);
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -28,7 +28,7 @@ public class UserManagerService {
 
     public boolean ChangePassword(Person p, String newPassword){
         try {
-            p.setPassword(AuthenticationService.encryptPassword(newPassword));
+            p.setPassword(IAuthenticationService.encryptPassword(newPassword));
             personDao.save(p);
         } catch (Exception e) {
             throw new RuntimeException(e);

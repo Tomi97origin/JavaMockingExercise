@@ -37,9 +37,9 @@ class AuthorizationServiceTest {
         when(personRolesDao.load("id = 1")).thenReturn(personRoles);
 
 
-        AuthorizationService authorizationService = new AuthorizationService(personDAO, personRolesDao);
+        IAuthorizationService IAuthorizationService = new AuthorizationService(personDAO, personRolesDao);
 
-        boolean result = authorizationService.Authorize(expectedPerson,section,access);
+        boolean result = IAuthorizationService.Authorize(expectedPerson,section,access);
 
         assertTrue(result);
     }
@@ -62,9 +62,9 @@ class AuthorizationServiceTest {
         when(personRolesDao.load("id = 1")).thenReturn(personRoles);
 
 
-        AuthorizationService authorizationService = new AuthorizationService(personDAO, personRolesDao);
+        IAuthorizationService IAuthorizationService = new AuthorizationService(personDAO, personRolesDao);
 
-        boolean result = authorizationService.Authorize(expectedPerson,section,access);
+        boolean result = IAuthorizationService.Authorize(expectedPerson,section,access);
 
         assertFalse(result);
     }
@@ -87,9 +87,9 @@ class AuthorizationServiceTest {
         when(personRolesDao.load("id = 1")).thenReturn(personRoles);
 
 
-        AuthorizationService authorizationService = new AuthorizationService(personDAO, personRolesDao);
+        IAuthorizationService IAuthorizationService = new AuthorizationService(personDAO, personRolesDao);
 
-        boolean result = authorizationService.Authorize(expectedPerson,"/section/subsection",access);
+        boolean result = IAuthorizationService.Authorize(expectedPerson,"/section/subsection",access);
 
         assertTrue(result);
     }
@@ -113,9 +113,9 @@ class AuthorizationServiceTest {
         when(personRolesDao.load("id = 1")).thenReturn(personRoles);
 
 
-        AuthorizationService authorizationService = new AuthorizationService(personDAO, personRolesDao);
+        IAuthorizationService IAuthorizationService = new AuthorizationService(personDAO, personRolesDao);
 
-        boolean result = authorizationService.Authorize(expectedPerson,"/section/subsection",access);
+        boolean result = IAuthorizationService.Authorize(expectedPerson,"/section/subsection",access);
 
         assertFalse(result);
     }
@@ -138,9 +138,9 @@ class AuthorizationServiceTest {
         when(personRolesDao.load("id = 1")).thenReturn(personRoles);
 
 
-        AuthorizationService authorizationService = new AuthorizationService(personDAO, personRolesDao);
+        IAuthorizationService IAuthorizationService = new AuthorizationService(personDAO, personRolesDao);
 
-        boolean result = authorizationService.Authorize(expectedPerson,"/section/subsection",access);
+        boolean result = IAuthorizationService.Authorize(expectedPerson,"/section/subsection",access);
 
         assertTrue(result);
     }
@@ -164,9 +164,9 @@ class AuthorizationServiceTest {
         when(personRolesDao.load("id = 1")).thenReturn(personRoles);
 
 
-        AuthorizationService authorizationService = new AuthorizationService(personDAO, personRolesDao);
+        IAuthorizationService IAuthorizationService = new AuthorizationService(personDAO, personRolesDao);
 
-        boolean result = authorizationService.Authorize(expectedPerson,"/section/subsection",access);
+        boolean result = IAuthorizationService.Authorize(expectedPerson,"/section/subsection",access);
 
         assertFalse(result);
     }
@@ -189,9 +189,9 @@ class AuthorizationServiceTest {
         when(personRolesDao.load("id = 1")).thenReturn(personRoles);
 
 
-        AuthorizationService authorizationService = new AuthorizationService(personDAO, personRolesDao);
+        IAuthorizationService IAuthorizationService = new AuthorizationService(personDAO, personRolesDao);
 
-        boolean result = authorizationService.Authorize(expectedPerson,"/section/subsection",access);
+        boolean result = IAuthorizationService.Authorize(expectedPerson,"/section/subsection",access);
 
         assertTrue(result);
     }
@@ -214,9 +214,9 @@ class AuthorizationServiceTest {
         when(personRolesDao.load("id = 1")).thenReturn(personRoles);
 
 
-        AuthorizationService authorizationService = new AuthorizationService(personDAO, personRolesDao);
+        IAuthorizationService IAuthorizationService = new AuthorizationService(personDAO, personRolesDao);
 
-        boolean result = authorizationService.Authorize(expectedPerson,"/section/subsection",access);
+        boolean result = IAuthorizationService.Authorize(expectedPerson,"/section/subsection",access);
 
         assertTrue(result);
     }
@@ -239,9 +239,9 @@ class AuthorizationServiceTest {
         when(personRolesDao.load("id = 1")).thenReturn(personRoles);
 
 
-        AuthorizationService authorizationService = new AuthorizationService(personDAO, personRolesDao);
+        IAuthorizationService IAuthorizationService = new AuthorizationService(personDAO, personRolesDao);
 
-        boolean result = authorizationService.Authorize(expectedPerson,"/section/subsection",access);
+        boolean result = IAuthorizationService.Authorize(expectedPerson,"/section/subsection",access);
 
         assertTrue(result);
     }
@@ -249,25 +249,25 @@ class AuthorizationServiceTest {
 
     @Test
     void getUpperLeverSubsubsection() {
-        String result = AuthorizationService.getUpperLever("/section/subsection/subsubsection");
+        String result = IAuthorizationService.getUpperLever("/section/subsection/subsubsection");
         assertEquals("/section/subsection", result);
     }
 
     @Test
     void getUpperLeverSubsection() {
-        String result = AuthorizationService.getUpperLever("/section/subsection");
+        String result = IAuthorizationService.getUpperLever("/section/subsection");
         assertEquals("/section", result);
     }
 
     @Test
     void getUpperLeverSection() {
-        String result = AuthorizationService.getUpperLever("/section");
+        String result = IAuthorizationService.getUpperLever("/section");
         assertEquals("/", result);
     }
 
     @Test
     void getUpperLeverRoot() {
-        String result = AuthorizationService.getUpperLever("/");
+        String result = IAuthorizationService.getUpperLever("/");
         assertEquals("", result);
     }
 }

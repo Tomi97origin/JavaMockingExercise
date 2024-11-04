@@ -1,22 +1,24 @@
 package cz.upce.fei.inptp.databasedependency.business;
 
-import cz.upce.fei.inptp.databasedependency.dao.PersonRolesDAO;
+import com.google.inject.Inject;
 import cz.upce.fei.inptp.databasedependency.dao.PersonDAO;
 import cz.upce.fei.inptp.databasedependency.entity.PersonRole;
 import cz.upce.fei.inptp.databasedependency.entity.Person;
 import cz.upce.fei.inptp.databasedependency.entity.Role;
+import cz.upce.fei.inptp.databasedependency.dao.DAO;
 
 /**
  * Authorization service. User is authorized to access specified part of system,
  * if he has required access directly to specified part, or to upper level part.
  */
-public class AuthorizationService {
+public class AuthorizationService implements IAuthorizationService {
 
     private PersonDAO persondao;
-    private PersonRolesDAO personRolesDao;
+    private DAO<PersonRole> personRolesDao;
 
-    public AuthorizationService(PersonDAO persondao, PersonRolesDAO personRolesDao) {
-        this.persondao = persondao;
+    @Inject
+    public AuthorizationService(DAO<Person> persondao, DAO<PersonRole> personRolesDao) {
+        this.persondao = (PersonDAO) persondao;
         this.personRolesDao = personRolesDao;
     }
 
@@ -30,6 +32,7 @@ public class AuthorizationService {
     // TODO: Authorize(person, "/section/subsection", rw) - PersonRole([Role("/section/subsection", admin)]) - pass
     // TODO: Authorize(person, "/section/subsection", rw) - PersonRole([Role("/section", admin)]) - pass
     // TODO: Authorize(person, "/section/subsection", rw) - PersonRole([Role("/", admin)]) - pass
+    @Override
     public boolean Authorize(Person person, String section, AccessOperationType operationType) {
         String roleWhere = persondao.getRoleWhereStringFor(person);
 
@@ -53,28 +56,11 @@ public class AuthorizationService {
                 }
             }
 
-            section = getUpperLever(section);
+            section = IAuthorizationService.getUpperLever(section);
             //System.out.println("newsection " + section);
         } while (!section.equals(""));
 
         return false;
-    }
-
-    // TODO: add tests
-    // TODO: "/section/subsection/subsubsection" -> "/section/subsection"
-    // TODO: "/section/subsection" -> "/section"
-    // TODO: "/section" -> "/"
-    // TODO: "/" -> ""
-    public static String getUpperLever(String section) {
-        if (section.equals("/")) {
-            return "";
-        }
-
-        String ret = section.substring(0, section.lastIndexOf("/") + 1);
-        if (ret.equals("/")) {
-            return ret;
-        }
-        return ret.substring(0, ret.length() - 1);
     }
 
 }
