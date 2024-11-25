@@ -41,5 +41,7 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
+    - name: Install SQLite
+      run: sudo apt-get install sqlite3 libsqlite3-dev
     - name: Test with Maven
       run: mvn -B clean test --file pom.xml
