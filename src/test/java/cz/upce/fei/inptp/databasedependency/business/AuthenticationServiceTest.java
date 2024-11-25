@@ -14,15 +14,20 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class AuthenticationServiceTest {
 
+    // Automatically mocks the PersonDAO
+    @Mock
+    private PersonDAO personDAO;
+
+    // Injects the mock PersonDAO into the AuthenticationService
+    @InjectMocks
+    private AuthenticationService authenticationService;
+
     @org.junit.jupiter.api.Test
     void authenticateUserWithCorrectPassword() {
-        PersonDAO personDAO = mock(PersonDAO.class);
         String password = encryptPassword("pass");
         Person expectedPerson = new Person(1,"user", password);
         when(personDAO.load("name = 'user'")).thenReturn(expectedPerson);
-        AuthenticationService authenticationService = new AuthenticationService(personDAO);
-
-
+        
         boolean result = authenticationService.Authenticate("user", "pass");
 
         // Assert
@@ -32,12 +37,9 @@ class AuthenticationServiceTest {
 
     @org.junit.jupiter.api.Test
     void authenticateUserWithWrongPassword() {
-        PersonDAO personDAO = mock(PersonDAO.class);
         String password = encryptPassword("pass");
         Person expectedPerson = new Person(1,"user", password);
         when(personDAO.load("name = 'user'")).thenReturn(expectedPerson);
-        AuthenticationService authenticationService = new AuthenticationService(personDAO);
-
 
         boolean result = authenticationService.Authenticate("user", "invalid");
 
@@ -48,12 +50,9 @@ class AuthenticationServiceTest {
 
     @org.junit.jupiter.api.Test
     void authenticateUserNotFound() {
-        PersonDAO personDAO = mock(PersonDAO.class);
         String password = encryptPassword("pass");
         Person expectedPerson = null;
         when(personDAO.load("name = 'user'")).thenReturn(expectedPerson);
-        AuthenticationService authenticationService = new AuthenticationService(personDAO);
-
 
         boolean result = authenticationService.Authenticate("user", "pass");
 
