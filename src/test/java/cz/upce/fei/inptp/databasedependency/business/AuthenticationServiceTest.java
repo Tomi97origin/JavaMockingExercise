@@ -4,6 +4,8 @@ import cz.upce.fei.inptp.databasedependency.dao.PersonDAO;
 import cz.upce.fei.inptp.databasedependency.entity.Person;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 
 import java.lang.reflect.Field;
 
