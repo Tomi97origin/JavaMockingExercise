@@ -18,6 +18,7 @@ public class AuthenticationService {
     private PersonDAO persondao;
 
     public AuthenticationService(PersonDAO persondao) {
+        this.persondao = persondao;
     }
 
 
