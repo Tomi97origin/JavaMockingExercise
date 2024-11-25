@@ -42,4 +42,4 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Test with Maven
-      run: mvn clean test -Dtest=cz.upce.fei.inptp.databasedependency.business.AuthenticationServiceTest
+      run: mvn -B clean test -Dtest=cz.upce.fei.inptp.databasedependency.business.AuthenticationServiceTest --file pom.xml
